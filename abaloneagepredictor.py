@@ -7,7 +7,6 @@ import traceback
 
 app = Flask(__name__)
 
-# --- Load and process dataset ---
 data = pd.read_csv("abalone.csv").dropna()
 
 X = data[['Sex', 'Length', 'Diameter', 'Height', 'Whole weight']].copy()
@@ -28,9 +27,6 @@ data['WaterType'] = np.where(
     'Freshwater'
 )
 
-# -----------------------------------
-# HTML TEMPLATE (GRAPH REMOVED)
-# -----------------------------------
 html_template = """
 <!DOCTYPE html>
 <html>
@@ -129,9 +125,6 @@ html_template = """
 </html>
 """
 
-# -----------------------------------
-# ROUTE
-# -----------------------------------
 @app.route("/", methods=["GET", "POST"])
 def index():
     result = None
@@ -184,6 +177,5 @@ def index():
 
     return render_template_string(html_template, result=result)
 
-# -----------------------------------
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=False)
